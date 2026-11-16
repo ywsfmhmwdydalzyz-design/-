@@ -1,0 +1,6 @@
+{
+  "name": "سكينة الإسلامي",
+  "description": "تطبيق سكينة الإسلامي الشامل: مصحف شريف، تفاسير مقارنة، أذكار تفاعلية، أحاديث نبوية، مواقيت صلاة ومؤذن، وأدعية",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

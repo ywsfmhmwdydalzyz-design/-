@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+
+    <uses-feature
+        android:name="android.hardware.sensor.compass"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.sensor.accelerometer"
+        android:required="false" />
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.MyApplication">
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.MyApplication">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <receiver
+            android:name=".utils.SakinaNotificationReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="com.example.ACTION_EXACT_PRAYER" />
+                <action android:name="com.example.ACTION_PERIODIC_DUA" />
+                <action android:name="com.example.ACTION_PROPHET_PRAYER" />
+                <action android:name="com.example.ACTION_MORNING_AZKAR" />
+                <action android:name="com.example.ACTION_EVENING_AZKAR" />
+                <action android:name="com.example.ACTION_SLEEP_AZKAR" />
+                <action android:name="com.example.ACTION_FRIDAY_SUNAN" />
+                <action android:name="com.example.ACTION_DAILY_WIRD" />
+            </intent-filter>
+        </receiver>
+
+        <!-- تسجيل المستقبل Receiver -->
+        <receiver 
+            android:name=".receivers.AzanReceiver"
+            android:enabled="true"
+            android:exported="false" />
+
+        <!-- تسجيل خدمة الآذان والتشغيل في الخلفية -->
+        <service 
+            android:name=".services.AzanService"
+            android:foregroundServiceType="mediaPlayback"
+            android:exported="false" />
+
+        <!-- تسجيل خدمة مواقيت الصلاة والعداد التنازلي المباشر في الخلفية -->
+        <service
+            android:name=".services.PrayerTimesService"
+            android:foregroundServiceType="dataSync"
+            android:exported="false" />
+
+        <!-- شاشة تنبيه الأذان الكاملة Full Screen Azan Activity -->
+        <activity
+            android:name=".ui.screens.AzanActivity"
+            android:exported="true"
+            android:showWhenLocked="true"
+            android:turnScreenOn="true"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTask"
+            android:theme="@style/Theme.MyApplication" />
+    </application>
+
+</manifest>
